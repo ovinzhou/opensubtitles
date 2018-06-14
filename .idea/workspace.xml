@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+<<<<<<< HEAD
   <component name="ChangeListManager">
     <list default="true" id="eaf7949f-3845-4c7c-94eb-bd6002bb3ab7" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/sub.py" beforeDir="false" afterPath="$PROJECT_DIR$/sub.py" afterDir="false" />
@@ -47,6 +48,8 @@
     <detection-done>true</detection-done>
     <sorting>DEFINITION_ORDER</sorting>
   </component>
+=======
+>>>>>>> 6fa21d358d1a0e047002b8dc7b614eb42d1e4bfc
   <component name="NodePackageJsonFileManager">
     <packageJsonPaths />
   </component>
@@ -56,6 +59,7 @@
     <option name="width" value="1400" />
     <option name="height" value="1000" />
   </component>
+<<<<<<< HEAD
   <component name="ProjectView">
     <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
@@ -75,11 +79,14 @@
       <pane id="Scope" />
     </panes>
   </component>
+=======
+>>>>>>> 6fa21d358d1a0e047002b8dc7b614eb42d1e4bfc
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
+<<<<<<< HEAD
     <property name="settings.editor.selected.configurable" value="Errors" />
   </component>
   <component name="RunDashboard">
@@ -148,5 +155,8 @@
         </state>
       </provider>
     </entry>
+=======
+    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
+>>>>>>> 6fa21d358d1a0e047002b8dc7b614eb42d1e4bfc
   </component>
 </project>
