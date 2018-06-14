@@ -74,11 +74,12 @@ class Opensubzm(object):
             response = self.request(url)
             zm_path = './zm/' + movie_id + '.zip'
             print(movie_id, country.replace('flag', '').strip(), zm_path)
-            with open(zm_path, 'wb') as f:
-                f.write(response)
+            self.save_data(zm_path, response)
 
-    def save_data(self):
-        pass
+    @staticmethod
+    def save_data(file_path, content):
+        with open(file_path, 'wb') as f:
+            f.write(content)
 
     def run(self):
         url = 'https://www.opensubtitles.org/en/search/sublanguageid-all/moviename-a'
