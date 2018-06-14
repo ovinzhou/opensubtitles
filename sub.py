@@ -6,6 +6,7 @@ import re
 
 class Opensubzm(object):
     def __init__(self):
+        self.url = 'https://www.opensubtitles.org/en/search/sublanguageid-all/moviename-%s'
         self.user_agent_list = [
             "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1; AcooBrowser; .NET CLR 1.1.4322; .NET CLR 2.0.50727)",
             "Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 6.0; Acoo Browser; SLCC1; .NET CLR 2.0.50727; Media Center PC 5.0; .NET CLR 3.0.04506)",
@@ -82,12 +83,14 @@ class Opensubzm(object):
             f.write(content)
 
     def run(self):
-        url = 'https://www.opensubtitles.org/en/search/sublanguageid-all/moviename-a'
-        response = self.request(url)
-        self.analysis(response)
+        for i in range(26):
+            letter = chr(i + ord('a'))
+            print('正在抓取' + letter)
+            url = self.url % letter
+            response = self.request(url)
+            self.analysis(response)
 
 
 if __name__ == '__main__':
     osz = Opensubzm()
     osz.run()
-
