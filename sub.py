@@ -6,7 +6,7 @@ import re
 
 class Opensubzm(object):
     def __init__(self):
-        self.url = 'https://www.opensubtitles.org/en/search/sublanguageid-all/moviename-%s'
+        self.url = 'https://www.opensubtitles.org/en/search/sublanguageid-all/moviename-%s/offset-%s'
         self.user_agent_list = [
             "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1; AcooBrowser; .NET CLR 1.1.4322; .NET CLR 2.0.50727)",
             "Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 6.0; Acoo Browser; SLCC1; .NET CLR 2.0.50727; Media Center PC 5.0; .NET CLR 3.0.04506)",
@@ -58,6 +58,7 @@ class Opensubzm(object):
             'User-Agent': ''
         }
         self.rex = r'/(\d*)/'
+        self.movie_id = ''
 
     def request(self, url):
         self.headers['User-Agent'] = random.choice(self.user_agent_list)
@@ -70,6 +71,9 @@ class Opensubzm(object):
         country_list = xdata.xpath('//*[contains(@id, name)]/td[2]/a/div/@class')
         for info_url, country in zip(info_url_list, country_list):
             movie_id = re.findall(self.rex, info_url)[0]
+            if self.movie_id == movie_id:
+                return 'wrong'
+            self.movie_id = movie_id
             self.headers['referer'] = 'https://www.opensubtitles.org' + info_url
             url = 'https://dl.opensubtitles.org/en/download/sub/' + movie_id
             response = self.request(url)
@@ -86,9 +90,12 @@ class Opensubzm(object):
         for i in range(26):
             letter = chr(i + ord('a'))
             print('正在抓取' + letter)
-            url = self.url % letter
-            response = self.request(url)
-            self.analysis(response)
+            for offset in range(0, 10000000, 40):
+                url = self.url % (letter, offset)
+                response = self.request(url)
+                content = self.analysis(response)
+                if content == 'wrong':
+                    break
 
 
 if __name__ == '__main__':
