@@ -59,6 +59,8 @@ class Opensubzm(object):
         }
         self.rex = r'/(\d*)/'
         self.movie_id = ''
+        # 判断是否第一次抓取
+        self.first_count = True
 
     def request(self, url):
         self.headers['User-Agent'] = random.choice(self.user_agent_list)
@@ -71,15 +73,18 @@ class Opensubzm(object):
         country_list = xdata.xpath('//*[contains(@id, name)]/td[2]/a/div/@class')
         for info_url, country in zip(info_url_list, country_list):
             movie_id = re.findall(self.rex, info_url)[0]
-            if self.movie_id == movie_id:
-                return 'wrong'
-            self.movie_id = movie_id
+            if self.first_count:
+                if self.movie_id == movie_id:
+                    return 'wrong'
+                self.movie_id = movie_id
+                self.first_count = False
             self.headers['referer'] = 'https://www.opensubtitles.org' + info_url
             url = 'https://dl.opensubtitles.org/en/download/sub/' + movie_id
             response = self.request(url)
             zm_path = './zm/' + movie_id + '.zip'
             print(movie_id, country.replace('flag', '').strip(), zm_path)
             self.save_data(zm_path, response)
+        self.first_count = True
 
     @staticmethod
     def save_data(file_path, content):
@@ -90,11 +95,12 @@ class Opensubzm(object):
         for i in range(26):
             letter = chr(i + ord('a'))
             print('正在抓取' + letter)
-            for offset in range(0, 10000000, 40):
+            for offset in range(960, 10000000, 40):
                 url = self.url % (letter, offset)
                 response = self.request(url)
                 content = self.analysis(response)
                 if content == 'wrong':
+                    print('结束')
                     break
 
 
